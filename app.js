@@ -25,7 +25,7 @@ const port = process.env.PORT || 3000
 
 // Create a new JSDOM instance
 const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
-
+console.log("update");
 // Extract the document object from the JSDOM instance
 const { document } = dom.window;
 
