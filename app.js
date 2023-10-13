@@ -641,7 +641,7 @@ app.get("/courseList", async(req, res)=>{
   }
 });
 
-app.get('/department', async(req,res) =>{
+app.get("/department", async (req,res) =>{
     // Check if user is logged in
  if (!req.session.user) {
   res.redirect("/login");
@@ -671,7 +671,7 @@ app.get('/department', async(req,res) =>{
         messageDelete: req.flash('message-delete')
       });
   }
-
+});
 
 app.post("/addDepartment", function(req, res){
   const department = new DepartmentList({
@@ -689,8 +689,7 @@ app.post("/addDepartment", function(req, res){
   });
 });
 
-
-app.post("/addCourse", function(req, res){
+app.post("/addcourse", function(req, res){
   const course = new Course({
     department: req.body.department,
     coursename: req.body.coursename,
@@ -709,11 +708,6 @@ app.post("/addCourse", function(req, res){
   });
 });
 
-    
-   
-   
-
-});
 
 app.get("/userList", async(req, res) => {
  // Check if user is logged in and has the admin role
@@ -948,44 +942,6 @@ app.post("/addStudent", async (req, res) =>{
     }
   });
 });
-
-// app.post("/addStudent", function(req, res){
- 
-
-//     const student = new Student({
-//       studentID: req.body.studentID,
-//       khmername: req.body.khmername,
-//       englishname: req.body.englishname,
-//       phone: req.body.phone,
-//       gender: req.body.gender,
-//       dateofbirth: req.body.dateofbirth,
-//       skill: req.body.skill,
-//       course: req.body.course,
-//       dateregister: req.body.dateregister,
-//       price: req.body.price,
-//       payment: req.body.payment,
-//       occupation: req.body.occupation,
-//       status: req.body.status,
-//       branch: req.session.user.branch
-//     });
-  
-//     student.save((err) => {
-//       if(err) {
-//         console.log(err);
-          
-//           req.flash('message-fail', 'រក្សាទុកមិនបានជោគជ័យ');
-//           res.redirect("/studentList");
-                  
-//       } else {
-//           req.flash('message-success', 'រក្សាទុកបានជោគជ័យ');
-//           res.redirect("/studentList");
-                 
-//       }
-//     });
- 
-
-  
-// });
 
 app.post("/addCurrentStudent", function(req, res){
   const student = new Student({
@@ -1306,24 +1262,6 @@ app.post('/updateDropout', (req, res) => {
       res.redirect('/dropout'); // Redirect to the student list page
     });
 });
-
-// app.get('/updateCourse/:id/edit', (req, res) => {
-//   const courseId = req.params.id;
-
-//   // Use Mongoose to find the course from the database
-//   Course.findById(courseId)
-//     .then((course) => {
-      
-//       res.render('updateCourse', { course }); 
-      
-//     })
-//     .catch((error) => {
-//       console.error('Error retrieving course:', error);
-//       res.redirect('/courseList'); 
-//     });
-
-    
-// });
 
 
 app.post('/updateCourse', (req, res) => {
