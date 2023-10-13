@@ -7,10 +7,6 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const flash = require('connect-flash');
-const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require('mongoose-findorcreate');
 const { SchemaType } = require('mongoose');
 const { Schema } = require('mongoose');
 const moment = require('moment');
@@ -19,13 +15,10 @@ const cors = require("cors");
 const multer = require("multer");
 const xlsx = require('xlsx');
 const path = require("path");
-const fs = require('fs-extra')
-const csv = require('csvtojson');
 const {JSDOM} = require('jsdom');
 const {Workbook} = require('exceljs');
 
 const puppeteer = require('puppeteer');
-const excelToJson = require('convert-excel-to-json');
 const { request } = require('http');
 
 const port = process.env.PORT || 3000
@@ -102,11 +95,6 @@ const courseLists = ['OAP', 'CAMT', 'Advance Excel', 'Quickbooks', 'Graphic Desi
 const paymentList = ['សាច់ប្រាក់', 'តាមធនាគារ'];
 const jobList = ['សិស្ស', 'មានកាងារធ្វើ', 'ផ្សេងៗ'];
 const statusList = ['កំពុងសិក្សា', 'បញ្ចប់ការសិក្សា', 'បោះបង់ការសិក្សា'];
-
-
-
-// userSchema.plugin(passportLocalMongoose);
-userSchema.plugin(findOrCreate);
 
 const User = new mongoose.model("User", userSchema);
 const Student = new mongoose.model("Student", studentSchema);
@@ -1341,28 +1329,6 @@ app.delete('/department/:id', (req, res) => {
       res.redirect('/department'); // Redirect to the student list page
     });
 });
-
-//import data from csv
-// const upload = multer({ dest: 'public/uploads/' });
-// app.post('/importStudent', upload.single('csvFile'), (req, res) => {
-//   try {
-//   const csvFilePath = req.file.path;
-  
-//   csv()
-//   .fromFile(csvFilePath)
-//   .then((jsonObj)=>{
-      
-//       console.log(jsonObj);
-//       Student.insertMany(jsonObj);
-//       console.log("Data add successfully");
-//       res.redirect('/studentList');
-      
-//   })
-//   } catch (error) {
-//     console.log("Data error");
-//   }
-  
-// });
 
 //birthday
 app.get("/birthday" , async(req, res) => {
