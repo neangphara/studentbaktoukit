@@ -1,0 +1,72 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+
+<div class="col mt-3">
+        
+    <h1 class="mb-3">វគ្គសិក្សា</h1>
+    <form action="/updateCourse/<%= course._id %>/edit" method="POST" class="needs-validation" novalidate="" style="padding: 20px;">
+        <div class="row g-3">
+            <div class="col-md-3">
+                
+                <select class="form-select" name="department" required="">
+                  <option value="ជំនាញ" disabled>ជំនាញ</option>
+                  <option><% if (course.department === 'រដ្ឋបាលកុំព្យូទ័រ') { %>selected<% } %>រដ្ឋបាលកុំព្យូទ័រ</option>
+                  <option><% if (course.department === 'គណនេយ្យកុំព្យូទ័រ') { %>selected<% } %>គណនេយ្យកុំព្យូទ័រ</option>
+                  <option><% if (course.department === 'ក្រាហ្វិកឌីសាញ') { %>selected<% } %>ក្រាហ្វិកឌីសាញ</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please provide a valid state.
+                </div>
+            </div>
+
+          <div class="col-md-5">
+            
+            <input type="text" class="form-control" name="coursename" placeholder="វគ្គសិក្សា" value="<%= course.coursename %>" required="">
+            <div class="invalid-feedback">
+              Valid last name is required.
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            
+            <input type="text" class="form-control" name="price" value="<%= course.price %>" placeholder="តម្លៃ" required="">
+            <div class="invalid-feedback">
+              Please select date.
+            </div>
+          </div>
+          <div class="col-md-1">
+            <button type="submit" class="btn btn-primary me">បន្ថែម</button>
+        
+            <!-- <a class="btn btn-outline-secondary me" href="/studentList" role="button">ចាកចេញ</a> -->
+          </div>
+          
+        </div>
+        
+      </form>
+      <hr>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ជំនាញ</th>
+            <th scope="col">វគ្គសិក្សា</th>
+            <th scope="col">តម្លៃ</th>
+            <th scope="col">ការកំណត់</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+         
+          
+          
+        </tbody>
+      </table>
+   
+</div>
+
+
+
+
+
+<%- include('partials/footer') %>

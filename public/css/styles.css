@@ -1,0 +1,311 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #E8ECEF;
+  margin: 0;
+  padding: 0;
+  font-family: 'Kantumruy Pro', sans-serif;
+}
+
+.centered {
+    padding-top: 200px;
+    text-align: center;
+}
+
+.secret-text {
+  text-align: center;
+  font-size: 2rem;
+  color: #fff;
+  background-color: #000;
+}
+
+.dropdown-toggle { outline: 0; }
+
+.btn-toggle {
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: white;
+  background-color: transparent;
+}
+a {
+  padding: .1875rem .5rem;
+  
+}
+a:hover, a:focus{
+  color: white;
+  text-decoration: none;
+  border: 1px solid white;
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  
+  transition: transform .35s ease;
+  transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: white;
+  
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+}
+
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  border: 1px solid white;
+  color: white;
+  /* background-color: var(--bs-tertiary-bg); */
+  
+}
+
+.scrollarea {
+  overflow-y: auto;
+}
+
+.mynavstyle {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.dashboard-container {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 5px;
+}
+.dashboard-header {
+  margin-bottom: 20px;
+}
+.dashboard-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+.dashboard-content {
+  display: flex;
+  justify-content: space-between;
+}
+.card {
+  width: 200px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.card-content {
+  font-size: 16px;
+}
+
+.mycard {
+  background-color: white;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.dashboard {
+  display: flex;
+}
+
+
+
+
+#hideMe {
+  -webkit-animation: cssAnimation 5s forwards; 
+  animation: cssAnimation 5s forwards;
+}
+@keyframes cssAnimation {
+  0%   {opacity: 1;}
+  90%  {opacity: 1;}
+  100% {opacity: 0;}
+}
+@-webkit-keyframes cssAnimation {
+  0%   {opacity: 1;}
+  90%  {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+
+.message:empty {
+
+  display: none;
+
+}
+
+.table-container {
+  overflow: auto;
+  max-height: 300px;
+
+}
+
+.undobtn {
+  color: red;
+  text-decoration: none;
+}
+.undobtn:hover {
+  color: white;
+  border: none;
+}
+
+.drop-container {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px dashed #555;
+  color: #444;
+  cursor: pointer;
+  transition: background .2s ease-in-out, border .2s ease-in-out;
+}
+
+.drop-container:hover,
+.drop-container.drag-active {
+  background: #eee;
+  border-color: #111;
+}
+
+.drop-container:hover .drop-title,
+.drop-container.drag-active .drop-title {
+  color: #222;
+}
+
+.drop-title {
+  color: #444;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color .2s ease-in-out;
+}
+
+input[type=file] {
+  width: 350px;
+  max-width: 100%;
+  color: #444;
+  padding: 5px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #555;
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #084cdf;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #0d45a5;
+}
+
+@font-face {
+  font-family: 'Battambang-Bold';
+  src: url('../../font/Battambang-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Battambang-Regular';
+  src: url('../../font/Battambang-Regular.ttf') format('truetype');
+}
+
+.studentList {
+  font-size: 16px;
+}
+
+.active-student {
+  display: flex; 
+  align-items: center; 
+  color: green;
+}
+.exam-student {
+  display: flex; 
+  align-items: center; 
+  color: blue;
+}
+.dropout-student {
+  display: flex; 
+  align-items: center; 
+  color: red;
+}
+.other-student {
+  display: flex; 
+  align-items: center; 
+  color: black;
+}
+
+.studentList thead tr th {
+  font-family: 'Battambang-Bold';
+  
+}
+.studentList tbody tr td {
+  font-family: 'Battambang-Regular';
+}
+
+
+.studentDetail {
+  border-color: white;
+}
+
+.studentDetail tbody tr th {
+  color: #9496A1
+}
+
+.studentDetail tbody tr td {
+  font-family: 'Battambang-Bold';
+  color: #282A3A
+}
+
+.page-title {
+  font-size: 32px;
+}
+
+.respon-page-title {
+  display: none;
+}
+
+
+@media only screen and (max-width: 650px) {
+  .dashboard {
+    flex-direction: column;
+  }
+  .page-title {
+    margin-left: 10px;
+    font-size: 32px;
+    display: none;
+  }
+  .respon-page-title {
+    display: block;
+    font-size: 24px;
+    margin-top: 18px;
+  }
+  .studentList {
+    font-size: 12px;
+  }
+  .searchdata {
+    display: block;
+
+  }
+}

@@ -1,0 +1,694 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+    
+    
+    <div class="col mt-3">
+      <%- include('partials/settings') %>
+      <% if(messageSuccess.length > 0) { %>
+        <div class="alert alert-success"> <%= messageSuccess %> </div>
+   <% } %>
+   <% if(messageFail.length > 0) { %>
+    <div class="alert alert-danger"> <%= messageFail %> </div>
+<% } %>
+<% if(messageDelete.length > 0) { %>
+  <div class="alert alert-danger"> <%= messageDelete %> </div>
+<% } %>
+            <div class="d-flex mb-3">
+            <div class="d-flex me-auto">
+              <% if(userRole === 'viewer') { %>
+                <button style="display: none;" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                  </svg>
+                </button>
+              <% } else { %>
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                  </svg>
+                </button>
+              <% } %> 
+              &nbsp;
+              
+              
+
+                          <!-- Button trigger modal -->
+                          <% if(userRole === 'viewer') { %>
+            <button style="display: none;" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#uploadModal">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-in-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z"/>
+                <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+              </svg>
+            </button> 
+            <% } else { %>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-in-down" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z"/>
+                  <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                </svg>
+              </button> 
+              <% } %> 
+
+            <!-- Modal -->
+             <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">បញ្ចូលទិន្នន័យពី Excel</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  
+                    <form action="/upload" method="post" enctype="multipart/form-data">
+                      <div class="modal-body">
+                        <label for="fileInput" class="drop-container" id="dropcontainer">
+                          <span id="drop-title" class="drop-title">ជ្រើសរើសឯកសារ</span>
+                         
+                          <input type="file" id="fileInput" name="excelFile" accept=".xlsx, .xls" style="display:none;" required>
+                        </label>
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-success" type="submit">ផ្ទុក</button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">ចាកចេញ</button>
+                        
+                      </div>
+                  </form>
+                   
+                 </div>
+              </div>
+            </div>  
+            
+            <script>
+              const dropContainer = document.getElementById("dropcontainer");
+            const fileInput = document.getElementById("fileInput");
+            const selectedFileName = document.getElementById("drop-title");
+
+            dropContainer.addEventListener("dragover", (e) => {
+              // prevent default to allow drop
+              e.preventDefault()
+            }, false)
+
+            dropContainer.addEventListener("dragenter", () => {
+              dropContainer.classList.add("drag-active")
+            })
+
+            dropContainer.addEventListener("dragleave", () => {
+              dropContainer.classList.remove("drag-active")
+            })
+
+            dropContainer.addEventListener("drop", (e) => {
+              e.preventDefault()
+              dropContainer.classList.remove("drag-active")
+              fileInput.files = e.dataTransfer.files
+              const fileName = fileInput.files[0].name
+              selectedFileName.textContent = fileName
+            })
+            fileInput.addEventListener("change", function() {
+                const fileName = fileInput.files[0].name;
+                selectedFileName.textContent = fileName;
+              });
+            </script>
+
+            
+                
+            </div>
+            <div class="" >
+              <p style="font-size: 20px;">ចំនួនសិក្ខាកាម <%= countStudent %> នាក់</p>
+            </div>
+            
+            
+     </div>
+       
+        
+    <table class="table studentList" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">អត្តលេខ</th>
+            <th scope="col">នាម និងគោត្តនាម</th>
+            <th scope="col">ជាអក្សរឡាតាំង</th>
+            <th scope="col">ភេទ</th>
+            <th scope="col">ថ្ងៃខែឆ្នាំកំណើត</th>
+            <th scope="col">លេខទូរសព័្ទ</th>
+            <th scope="col">វគ្គសិក្សា</th>
+            <th scope="col">ថ្ងៃចុះឈ្មោះ</th>
+            <th scope="col">ស្ថានភាព</th>
+            <th scope="col">ការកំណត់</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+          <% newListStudents.forEach(function(student, index) { %>
+            <tr>
+              <td> <%= student.studentID %> </td>
+              <td> <%= student.khmername %> </td>
+              <td> <%= student.englishname %></td>
+              <td> <%= student.gender %></td>
+              <td> <%= moment(student.dateofbirth).format('DD-MM-YYYY') %></td>
+              <td><%= student.phone %></td>
+              <td> <%= student.course %></td>
+              <td> <%= moment(student.dateregister).format('DD-MM-YYYY') %></td>
+              
+              <td> 
+                <% if(student.status === 'កំពុងសិក្សា') { %>
+                <div class="active-student"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="green" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                <circle cx="8" cy="8" r="8"/>
+              </svg>&nbsp;<%= student.status %></div>
+              <% } else if(student.status === 'បញ្ចប់ការសិក្សា') { %>
+                <div class="exam-student"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="blue" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                  <circle cx="8" cy="8" r="8"/>
+                </svg>&nbsp;បញ្ចប់</div>
+                <% } else if(student.status === 'បោះបង់ការសិក្សា') { %>
+                  <div class="dropout-student"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="red" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                    <circle cx="8" cy="8" r="8"/>
+                  </svg>&nbsp;បោះបង់</div>
+                <% } else { %>
+                  <div class="other-student"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="black" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                    <circle cx="8" cy="8" r="8"/>
+                  </svg>&nbsp;<%= student.status %></div>
+                <% } %>
+            </td>
+              
+              <td>
+                <div class="d-flex">
+                  <form action="">
+                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%= index %>" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                    </svg></button>
+                  </form>&nbsp;
+                  <% if(userRole === 'viewer') { %>
+                  <form>
+                    <button style="display: none;" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateModal<%= index %>" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                      <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                    </svg></button>
+                  </form>&nbsp;
+                  <form action="">
+                    <button style="display: none;" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal<%= index %>" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                    </svg></button>
+                  </form>
+                  <% } else { %>
+                    <form>
+                      <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateModal<%= index %>" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                      </svg></button>
+                    </form>&nbsp;
+                    <form action="">
+                      <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal<%= index %>" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                      </svg></button>
+                    </form>
+                  <% } %>
+                  
+                </div>
+              </td>
+            </tr>
+          <% })  %>
+          
+        </tbody>
+      </table>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          
+            <li class="page-item"><a class="page-link" href="?page=<%= 1 %>&search=<%=  search %>">ដំបូង</a></li>
+            <% if(currentPage > 1) { %>
+              <li class="page-item"><a class="page-link" href="?page=<%= currentPage - 1 %>&search=<%=  search %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+              </svg></a></li>
+            <% } %>
+            <li class="page-item"><a class="page-link" href=""><%= currentPage %></a></li>
+            <%  let currentPagenum = parseInt(currentPage);%>
+            <% if(currentPagenum < totalPage) { %>
+            <li class="page-item"><a class="page-link" href="?page=<%= currentPagenum + 1%>&search=<%=  search %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+              <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+            </svg></a></li>
+            <% }%>
+            <li class="page-item"><a class="page-link" href="?page=<%= totalPage %>&search=<%=  search %>">ចុងក្រោយ</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+
+
+    
+      <!-- Modal -->
+    <form action="/addDropout" method="POST" class="needs-validation" novalidate="">
+      <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-4" id="exampleModalLabel">បញ្ចូលទិន្នន័យ</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row g-3">
+               
+                <div class="col-sm-7">
+                  <label for="khmername" class="form-label">នាម និង គោត្តនាម</label>
+                  <input type="text" class="form-control" name="khmername" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    សូមបំពេញឈ្មោះ
+                  </div>
+                </div>
+      
+                <div class="col-sm-5">
+                  
+                  <label for="studentID" class="form-label">អត្តលេខ</label>
+                  <input type="text" class="form-control" name="studentID" placeholder="" value="" required="">
+                  <div class="invalid-feedback">
+                    សូមបំពេញអត្តលេខ
+                  </div>
+                </div>
+                <div class="col-sm-7">
+                  <label for="englishname" class="form-label">ជាអក្សរឡាតាំង</label>
+                  <input type="text" class="form-control" name="englishname" placeholder="" value="" required="">
+                  <div class="invalid-feedback">
+                    សូមបំពេញឈ្មោះ
+                  </div>
+                </div>
+                <div class="col-sm-5">
+                  <label for="phone" class="form-label">លេខទូរស័ព្ទ</label>
+                  <input type="text" class="form-control" name="phone" placeholder="" value="" >
+                  <div class="invalid-feedback">
+                 
+                  </div>
+                </div>
+      
+                <div class="col-md-4">
+                  <label for="gender" class="form-label">ភេទ</label>
+                  <select class="form-select" name="gender" required="">
+                    <% for (let i = 0; i < genderList.length; i++) { %>
+                      <option value="<%= genderList[i] %>"><%= genderList[i] %></option>
+                    <% } %>
+                  </select>
+                  <div class="invalid-feedback">
+                    សូមជ្រើសរើសភេទ
+                  </div>
+                </div>
+      
+                <div class="col-md-3">
+                  <label for="dateofbirth" class="form-label">ថ្ងៃខែឆ្នាំកំណើត</label>
+                  <input type="date" class="form-control" name="dateofbirth" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    សូមជ្រើសរើសកាលបរិច្ឆេទ
+                  </div>
+                </div>
+      
+                <div class="col-md-5">
+                  <label for="skill" class="form-label">ជំនាញ</label>
+                  <select class="form-select" name="skill" required="">
+                     <% departmentlist.forEach(function(departments) { %>
+                      <option value="<%= departments.name %>"><%= departments.name %></option>
+                    <% }); %>
+                  </select>
+                  <div class="invalid-feedback">
+                    សូមជ្រើសរើសជំនាញ
+                  </div>
+                </div>
+      
+                <div class="col-md-4">
+                  <label for="course" class="form-label">វគ្គសិក្សា</label>
+                  <select class="form-select" name="course" required="">
+                    <% courseLists.forEach(function(course) { %>
+                      <option value="<%= course.coursename %>"><%= course.coursename %></option>
+                    <% }); %>
+                  </select>
+                  <div class="invalid-feedback">
+                    សូមជ្រើសរើសវគ្គសិក្សា
+                  </div>
+                </div>
+      
+                <div class="col-md-3">
+                  <label for="dateregister" class="form-label">ថ្ងៃចុះឈ្មោះ</label>
+                  <input type="date" class="form-control" name="dateregister" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    សូមជ្រើសរើសកាលបរិច្ឆេទ
+                  </div>
+                </div>
+      
+                <div class="col-md-5">
+                  <label for="price" class="form-label">តម្លៃសិក្សា</label>
+                  <input type="text" class="form-control" name="price" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    សូមបំពេញតម្លៃសិក្សា
+                  </div>
+                </div>
+                
+                <div class="col-md-4">
+                  <label for="payment" class="form-label">ការទូទាត់</label>
+                  <select class="form-select" name="payment" required="">
+                   
+                    <% for (let i = 0; i < paymentList.length; i++) { %>
+                      <option value="<%= paymentList[i] %>"><%= paymentList[i] %></option>
+                    <% } %>
+                   
+                  </select>
+                  <div class="invalid-feedback">
+                    សូមជ្រើសរើសការទូរទាត់
+                  </div>
+                </div>
+      
+                <div class="col-md-3">
+                  <label for="occupation" class="form-label">មុខរបរ</label>
+                  <select class="form-select" name="occupation" required="">
+                    <% for (let i = 0; i < jobList.length; i++) { %>
+                      <option value="<%= jobList[i] %>"><%= jobList[i] %></option>
+                    <% } %>
+                  </select>
+                  <div class="invalid-feedback">
+                    សូមជ្រើសរើសមុខរបរ
+                  </div>
+                </div>
+      
+                <div class="col-md-5">
+                  <label for="status" class="form-label">ស្ថានភាព</label>
+                  <select class="form-select" name="status" required="">
+                    <% for (let i = 0; i < statusList.length; i++) { %>
+                      <option value="<%= statusList[i] %>"><%= statusList[i] %></option>
+                    <% } %>
+                  
+                  </select>
+                  <div class="invalid-feedback">
+                    សូមជ្រើសរើសស្ថានភាព
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              
+              <button type="submit" class="btn btn-primary">រក្សាទុក</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+     
+    
+
+
+
+    <% newListStudents.forEach(function(student, index) { %>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="exampleModalLabel">ព័ត៌មានរបស់សិក្ខាកាម</h1><br>
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% var id = '';
+        if(student.studentID){
+          id = 'អត្តលេខ: ' + student.studentID;
+        } else {
+          id = 'អត្តលេខ: គ្មាន';
+        }
+         %>
+        <h2 class="modal-title fs-4"><%= id %></h2><br>
+        <div class="d-flex gap-2">
+          <table class="table studentDetail">
+            <tbody>
+              
+              <tr>
+                <th scope="row" >ឈ្មោះ</th>
+                <td><%= student.khmername %></td>
+              </tr>
+              <tr>
+                <th scope="row" >ជាអក្សរឡាតាំង</th>
+                <td><%= student.englishname %></td>
+              </tr>
+              <tr>
+                <th scope="row" >ភេទ</th>
+                <td><%= student.gender %></td>
+              </tr>
+              <tr>
+                <th scope="row" >ថ្ងៃខែឆ្នាំកំណើត</th>
+                <td><%= moment(student.dateofbirth).format('DD-MMM-YYYY') %></td>
+              </tr>
+              <tr>
+                <th scope="row" >លេខទូរសព័្ទ</th>
+                <td><%= student.phone %></td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table studentDetail">
+            <tbody>
+              <tr>
+                <th>ជំនាញ</th>
+                <td><%= student.skill %></td>
+              </tr>
+              <tr>
+                <th>វគ្គសិក្សា</th>
+                <td><%= student.course %></td>
+              </tr>
+              <tr>
+                <th>ថ្ងៃចុះឈ្មោះ</th>
+                <td><%= moment(student.dateregister).format('DD-MMM-YYYY') %></td>
+              </tr>
+              <tr>
+                <th>មុខរបរ</th>
+                <td><%= student.occupation %></td>
+              </tr>
+              <tr>
+                <th>ស្ថានភាព</th>
+                <td>
+                  <% if(student.status === 'កំពុងសិក្សា') { %>
+                    <div class="active-student"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="green" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                    <circle cx="8" cy="8" r="8"/>
+                  </svg>&nbsp;<%= student.status %></div>
+                  <% } else if(student.status === 'បញ្ចប់ការសិក្សា') { %>
+                    <div class="exam-student"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="blue" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                      <circle cx="8" cy="8" r="8"/>
+                    </svg>&nbsp;បញ្ចប់</div>
+                    <% } else if(student.status === 'បោះបង់ការសិក្សា') { %>
+                      <div class="dropout-student"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="red" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"/>
+                      </svg>&nbsp;បោះបង់</div>
+                    <% } else { %>
+                      <div class="other-student"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="black" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"/>
+                      </svg>&nbsp;<%= student.status %></div>
+                    <% } %>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+       
+        
+      </div>
+      <div class="modal-footer">
+        <% if(userRole === 'viewer') { %>
+          <button style="display: none;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal<%= index %>" type="button">កែទិន្នន័យ</button>
+          <% } else { %>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal<%= index %>" type="button">កែទិន្នន័យ</button>
+          <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+<% })  %>
+
+<% newListStudents.forEach(function(student, index) { %>
+  <!-- Modal -->
+<form action="/updateDropout" method="POST" class="needs-validation" novalidate="">
+  <div class="modal fade" id="updateModal<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-4" id="exampleModalLabel">កែសម្រួលទិន្នន័យ</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <input style="display: none;" type="text" name="objectID" value="<%= student._id %>">
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+           
+            <div class="col-sm-7">
+              <label for="khmername" class="form-label">នាម និង គោត្តនាម</label>
+              <input type="text" class="form-control" name="khmername" placeholder="" value="<%= student.khmername %>" required="">
+              <div class="invalid-feedback">
+                សូមបំពេញឈ្មោះ
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <label for="studentID" class="form-label">អត្តលេខ</label>
+              <input type="text" class="form-control" name="studentID" placeholder="" value="<%= student.studentID %>" required="">
+              <div class="invalid-feedback">
+                សូមបំពេញអត្តលេខ
+              </div>
+            </div>
+            
+  
+            <div class="col-sm-7">
+              <label for="englishname" class="form-label">ជាអក្សរឡាតាំង</label>
+              <input type="text" class="form-control" name="englishname" placeholder="" value="<%= student.englishname %>" required="">
+              <div class="invalid-feedback">
+               សូមបំពេញឈ្មោះ
+              </div>
+            </div>
+  
+            <div class="col-sm-5">
+              <label for="phone" class="form-label">លេខទូរស័ព្ទ</label>
+              <input type="text" class="form-control" name="phone" placeholder="" value="<%= student.phone %>">
+              <div class="invalid-feedback">
+                
+              </div>
+            </div>
+  
+            <div class="col-md-4">
+              <label for="gender" class="form-label">ភេទ</label>
+              <select class="form-select" name="gender" required="">
+                <option value="ប្រុស" <% if (student.gender === 'ប្រុស') { %>selected<% } %>>ប្រុស</option>
+                <option value="ស្រី" <% if (student.gender === 'ស្រី') { %>selected<% } %>>ស្រី</option>
+                <option value="ព្រះសង្ឈ" <% if (student.gender === 'ព្រះសង្ឈ') { %>selected<% } %>>ព្រះសង្ឈ</option>
+              </select>
+              <div class="invalid-feedback">
+                សូមជ្រើសរើសភេទ
+              </div>
+            </div>
+  
+            <div class="col-md-3">
+              <label for="dateofbirth" class="form-label">ថ្ងៃខែឆ្នាំកំណើត</label>
+              <input type="date" class="form-control" name="dateofbirth" value="<%= student.dateofbirth.toISOString().slice(0, 10) %>" placeholder="" required="">
+              <div class="invalid-feedback">
+                សូមជ្រើសរើសកាលបរិច្ឆេទ
+              </div>
+            </div>
+  
+            <div class="col-md-5">
+              <label for="skill" class="form-label">ជំនាញ</label>
+              <select class="form-select" name="skill" required="">
+                <% departmentlist.forEach(function(departments) {
+                  if(student.skill === departments.name){ %>
+                    <option value="<%= departments.name %>" selected><%= departments.name %></option>
+                 <% } else { %>
+                    <option value="<%= departments.name %>"><%= departments.name %></option>
+                  <% } %>
+                <% }); %>
+              </select>
+              <div class="invalid-feedback">
+                សូមជ្រើសរើសជំនាញ
+              </div>
+            </div>
+  
+            <div class="col-md-4">
+              <label for="course" class="form-label">វគ្គសិក្សា</label>
+              <select class="form-select" name="course" required="">
+                <% courseLists.forEach(function(course) {
+                      if(student.course === course.coursename){ %>
+                        <option value="<%= course.coursename %>" selected><%= course.coursename %></option>
+                     <% } else { %>
+                        <option value="<%= course.coursename %>"><%= course.coursename %></option>
+                      <% } %>
+                    <% }); %>
+              </select>
+              <div class="invalid-feedback">
+                សូមជ្រើសរើសវគ្គសិក្សា
+              </div>
+            </div>
+  
+            <div class="col-md-3">
+              <label for="dateregister" class="form-label">ថ្ងៃចុះឈ្មោះ</label>
+              <input type="date" class="form-control" name="dateregister" value="<%= student.dateregister.toISOString().slice(0, 10) %>" placeholder="" required="">
+              <div class="invalid-feedback">
+               សូមជ្រើសរើសកាលបរិច្ឆេទ
+              </div>
+            </div>
+  
+            <div class="col-md-5">
+                  <label for="price" class="form-label">តម្លៃសិក្សា</label>
+                  <input type="text" class="form-control" name="price" value="<%= student.price %>" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    សូមបំពេញតម្លៃសិក្សា
+                  </div>
+                </div>
+                
+                <div class="col-md-4">
+                  <label for="payment" class="form-label">ការទូទាត់</label>
+                  <select class="form-select" name="payment" required="">
+                   
+                    <% for (let i = 0; i < paymentList.length; i++) { %>
+                      <option value="<%= paymentList[i] %>" <% if (student.payment === paymentList[i]) { %>selected<% } %>><%= paymentList[i] %></option>
+                    <% } %>
+                   
+                  </select>
+                  <div class="invalid-feedback">
+                    សូមជ្រើសរើសការទូរទាត់
+                  </div>
+                </div>
+            
+            
+  
+            <div class="col-md-3">
+              <label for="occupation" class="form-label">មុខរបរ</label>
+              <select class="form-select" name="occupation" required="">
+                <option value="សិស្ស" <% if (student.occupation === 'សិស្ស') { %>selected<% } %>>សិស្ស</option>
+                <option value="មានការងារ" <% if (student.occupation === 'មានការងារ') { %>selected<% } %>>មានការងារ</option>
+                <option value="ទំនេរ" <% if (student.occupation === 'ទំនេរ') { %>selected<% } %>>ទំនេរ</option>
+                <option value="ផ្សេងៗ" <% if (student.occupation === 'ផ្សេងៗ') { %>selected<% } %>>ផ្សេងៗ</option>
+  
+                
+              </select>
+              <div class="invalid-feedback">
+                សូមជ្រើសរើសមុខរបរ
+              </div>
+            </div>
+  
+            <div class="col-md-5">
+              <label for="status" class="form-label">ស្ថានភាព</label>
+              <select class="form-select" name="status" required="">
+                <option value="កំពុងសិក្សា" <% if (student.status === 'កំពុងសិក្សា') { %>selected<% } %>>កំពុងសិក្សា</option>
+                <option value="បញ្ចប់ការសិក្សា" <% if (student.status === 'បញ្ចប់ការសិក្សា') { %>selected<% } %>>បញ្ចប់ការសិក្សា</option>
+                <option value="បោះបង់ការសិក្សា" <% if (student.status === 'បោះបង់ការសិក្សា') { %>selected<% } %>>បោះបង់ការសិក្សា</option>
+              
+              
+              </select>
+              <div class="invalid-feedback">
+                សូមជ្រើសរើសស្ថានភាព
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          
+          <button type="submit" class="btn btn-primary">រក្សាទុក</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+  <% })  %>
+
+<% newListStudents.forEach(function(student, index) { %>
+  <form action="/dropout/<%= student._id %>?_method=DELETE" method="POST">
+    <div class="modal fade" id="confirmDeleteModal<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-3 shadow">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4 text-center">
+            <h4 class="mb-2">តើអ្នកពិតជាចង់លុបទិន្នន័យនេះមែនទេ?</h4>
+            <p class="mb-0">ទិន្នន័យដែលបានលុបរួចមិនអាចត្រឡប់វិញបានទេ។</p>
+          </div>
+          <div class="modal-footer text-center">
+              <button style="width: 100%;" class="btn btn-danger btn-lg " type="submit">លុប</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+<% })  %>
+
+
+
+
+<%- include('partials/footer') %>

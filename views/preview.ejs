@@ -1,0 +1,129 @@
+<%- include('./partials/header') %>
+  
+<div class="container bg-light mt-3" style="padding: 10px;">
+
+    <h1 class="mt-3">មើលទិន្នន័យជាមុន</h1>
+    <form action="/tableData" id="tableForm" method="POST">
+      <button class="btn btn-success mb-2" type="submit">បញ្ចូល</button>
+      <a class="btn btn-outline-danger mb-2" href="/studentList">ចាកចេញ</a>
+
+      <div id="errorDateMessage" style="color: red; display: none;">ទិន្នន័យមានកាលបរិច្ឆេទមិនត្រឹមត្រូវ។ សូមពិនិត្យថ្ងៃខែឆ្នាំកំណើត និងថ្ងៃខែចុះឈ្មោះឡើងវិញ។</div>
+      <div id="errorIdMessage" style="color: red; display: none;">ទិន្នន័យមានអត្តលេខជាន់គ្នា។ សូមពិនិត្យអត្តលេខម្តងទៀត។</div>
+
+      <div style="width: 100%; overflow: scroll;">
+        <table id="dataTable" class="table">
+            <thead>
+              <tr>
+                <th><%= headers[0] %></th>
+                <th><%= headers[1] %></th>
+                <th><%= headers[2] %></th>
+                <th><%= headers[3] %></th>
+                <th><%= headers[4] %></th>
+                <th><%= headers[5] %></th>
+                <th><%= headers[6] %></th>
+                <th><%= headers[7] %></th>
+                <th><%= headers[8] %></th>
+                <th><%= headers[9] %></th>
+                <th><%= headers[10] %></th> 
+                <th><%= headers[11] %></th>
+                <th><%= headers[12] %></th>
+                <th><%= headers[13] %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let row of rows) { %>
+                <tr>
+                  <td><input class="student-id" type="text" name="studentID" value="<%= row[0] %>"></td>
+                  <td><input type="text" name="khmername" value="<%= row[1] %>"></td>
+                  <td><input type="text" name="englishname" value="<%= row[2] %>"></td>
+                  <td><input type="text" name="gender" value="<%= row[3] %>"></td>
+                  <td><% var dob = new Date((row[4] - 25569) * 86400 * 1000); 
+                    var dateofbirth = dob.toLocaleDateString();
+                    %> <input class="date-input" type="text" name="dateofbirth" value="<%= dateofbirth %>"></td> 
+                <td><input type="text" name="phone" value="<%= row[5] %>"></td>
+                <td><input type="text" name="skill" value="<%= row[6] %>"></td>
+                <td><input type="text" name="course" value="<%= row[7] %>"></td>
+                <td><% var dresgister = new Date((row[8] - 25569) * 86400 * 1000); 
+                    var dateregister = dresgister.toLocaleDateString();
+                    %> <input class="date-input" type="text" name="dateregister" value="<%= dateregister %>"></td> 
+                <td><input type="text" name="price" value="<%= row[9] %>"></td>
+                <td><input type="text" name="payment" value="<%= row[10] %>"></td>
+                <td><input type="text" name="occupation" value="<%= row[11] %>"></td>
+                <td><input type="text" name="status" value="<%= row[12] %>"></td>
+                <td><input type="text" name="branch" value="<%= row[13] %>"></td>
+                
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>    
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("tableForm");
+const dateInputs = document.querySelectorAll(".date-input");
+const studentIdInputs = document.getElementsByClassName("student-id");
+const errorDateMessage = document.getElementById("errorDateMessage");
+const errorIdMessage = document.getElementById("errorIdMessage");
+// ...
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault(); // Prevent form submission
+  let isValid = true;
+  let studentIds = {};
+
+  for (let i = 0; i < dateInputs.length; i++) {
+    const dateInput = dateInputs[i];
+    const dateRegex = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[12]\d|3[01])\/\d{4}$/;
+
+    if (!dateRegex.test(dateInput.value)) {
+      // Show error message
+      errorDateMessage.style.display = "block";
+      isValid = false;
+      break;
+    }
+
+    const [month, day, year] = dateInput.value.split('/');
+    const parsedDate = new Date(`${year}-${month}-${day}`);
+
+    if (parsedDate.getMonth() + 1 !== Number(month) || parsedDate.getDate() !== Number(day) || parsedDate.getFullYear() !== Number(year)) {
+      // Show error message
+      errorDateMessage.style.display = "block";
+      isValid = false;
+      break;
+    }
+  }
+
+  for (let i = 0; i < studentIdInputs.length; i++) {
+    const studentIdInput = studentIdInputs[i];
+
+    if (studentIds.hasOwnProperty(studentIdInput.value)) {
+      // Show error message
+      errorIdMessage.style.display = "block";
+      isValid = false;
+      break;
+    }
+
+    studentIds[studentIdInput.value] = true;
+  }
+
+  if (isValid) {
+    // Submit the form
+    form.submit();
+  }
+});
+
+// ...
+
+for (let i = 0; i < dateInputs.length; i++) {
+  const dateInput = dateInputs[i];
+
+  dateInput.addEventListener("input", function() {
+    // Hide error message when the input value changes
+    errorDateMessage.style.display = "none";
+  });
+}
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+<div class="col mt-3">
+  <%- include('partials/settings') %>
+
+  <section class="container-fluid">
+    <div class="row dashboard">
+        <div class="col">
+          <div class="d-flex flex-row mycard mb-2">
+            <div class="media-body">
+                <h1 class="card-title" style="font-size: 50px;"><%= countCurrent %></h1>
+                <h4 class="card-subtitle">កំពុងទទួលការបណ្តុះបណ្តាល</h4>	
+                
+            </div>&nbsp;
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+              <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="col">
+          <div class="d-flex flex-row mycard mb-2">
+            <div class="media-body">
+                <h1 class="card-title" style="font-size: 50px;"><%= countExam %></h1>
+                <h4 class="card-subtitle">បានបញ្ចប់ការសិក្សា</h4>	
+            </div>&nbsp;
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+              <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="col">
+          <div class="d-flex flex-row mycard mb-2">
+            <div class="media-body">
+                <h1 class="card-title" style="font-size: 50px;"><%= countDropout %></h1>
+                <h4 class="card-subtitle">បោះបង់ការសិក្សា</h4>	
+            </div>&nbsp;
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+              <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+            </svg>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="container-fluid">
+
+    <div class="mycard">
+      <!-- <h2>Re</h2> -->
+      <table class="table studentList">
+        <thead>
+          <tr>
+            <th scope="col">អត្តលេខ</th>
+            <th scope="col">នាម និងគោត្តនាម</th>
+            <th scope="col">ជាអក្សរឡាតាំង</th>
+            <th scope="col">ភេទ</th>
+            <th scope="col">វគ្គសិក្សា</th>
+            <th scope="col">កាលបរិច្ឆេទចុះឈ្មោះ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% recent.forEach(function(student, index) { %>
+            <tr>
+              <td> <%= student.studentID %> </td>
+              <td> <%= student.khmername %> </td>
+              <td> <%= student.englishname %></td>
+              <td> <%= student.gender %></td>
+              <td> <%= student.course %></td>
+              <td> <%= moment(student.dateregister).format('DD-MM-YYYY') %></td>
+            </tr>
+          <% })  %>
+        </tbody>
+      </table>
+    </div>
+
+    
+  </section>
+
+</div>
+  
+
+<%- include('partials/footer') %>

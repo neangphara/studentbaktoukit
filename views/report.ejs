@@ -1,0 +1,156 @@
+<%- include('./partials/header') %>
+<%- include('./partials/sidebar') %>
+
+<div class="col mt-3">
+  <%- include('partials/settings') %>
+      <header class="">
+        
+          <div class="d-flex flex-wrap align-items-center justify-content-center ">
+            
+            <ul class="nav col-12 col-lg-auto me-lg-auto justify-content-center">
+              <p>ចំនួនសិក្ខាកាម:&nbsp;<%= count %>&nbsp;នាក់</p>
+            </ul>
+            <div class="d-flex text-end mb-2">
+              
+            </div>
+          </div>
+          
+    
+      </header>
+      
+      <div class="d-flex flex-wrap mb-2">
+        <form action="/reportFilter" method="GET" class="nav col-12 col-lg-auto me-lg-auto ">
+        
+          <div class="d-flex mb-2">
+            <select class="form-select col-2" name="reportType" id="">
+            <option value="របាយការណ៍">របាយការណ៍</option>
+            <% availableReport.forEach(function(report) { %>
+              <option value="<%= report %>" <% if (report === reportParam) { %>selected<% } %>><%= report %></option>
+            <% }); %>
+          </select>
+          <select class="form-select col-2" name="course">
+            <option value="វគ្គសិក្សា">វគ្គសិក្សា</option>
+            <% availableCourses.forEach(function(course) { %>
+              <option value="<%= course %>" <% if (course === courseParam) { %>selected<% } %>><%= course %></option>
+            <% }); %>
+          </select>
+          <select class="form-select col-2" name="status">
+            <option value="ស្ថានភាព">ស្ថានភាព</option>
+            <% availableStatus.forEach(function(status) { %>
+              <option value="<%= status %>" <% if (status === statusParam) { %>selected<% } %>><%= status %></option>
+            <% }); %>
+              
+          </select>
+          <input type="date" class="form-control col-2" name="startDateCustom" value="<%= startDateParam %>">
+          <input type="date" class="form-control col-2" name="endDateCustom" value="<%= endDateParam %>" >
+          &nbsp;
+          <input class="btn btn-outline-primary" type="submit" value="បង្ហាញ">&nbsp;
+          <a href="/report" class="btn btn-outline-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+          </svg></a>
+
+          </div>
+
+          
+        </form>
+        
+        <div class="d-flex ">
+          <form action="/exportToExcel" method="POST">
+            <input type="text" value="<%= reportParam %>" name="byReport" style="display: none;">
+            <input type="date" value="<%= startDateParam %>" name="byStartDate" style="display: none;">
+            <input type="date" value="<%= endDateParam %>" name="byEndDate" style="display: none;">
+            <input type="text" value="<%= courseParam %>" name="byCourse" style="display: none;">
+            <input type="text" value="<%= statusParam %>" name="byStatus" style="display: none;">
+            <button class="btn btn-outline-success" type="submit"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
+              <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+            </svg> 
+          </button>&nbsp;
+          </form>
+          <form action="/pdfmaker" method="POST">
+            <input type="text" value="<%= reportParam %>" name="byReport" style="display: none;">
+            <input type="date" value="<%= startDateParam %>" name="byStartDate" style="display: none;">
+            <input type="date" value="<%= endDateParam %>" name="byEndDate" style="display: none;">
+            <input type="text" value="<%= courseParam %>" name="byCourse" style="display: none;">
+            <input type="text" value="<%= statusParam %>" name="byStatus" style="display: none;">
+            <button class="btn btn-outline-danger" type="submit"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+              <path d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
+            </svg>
+          </button>
+          </form>
+        </div>
+      </div>
+    
+      <table class="table studentList" style="font-size: 15px;">
+        <thead>
+          <tr>
+            <th scope="col">អត្តលេខ</th>
+            <th scope="col">ឈ្មោះ</th>
+            <th scope="col">ជាអក្សរឡាតាំង</th>
+            <th scope="col">ភេទ</th>
+            <th scope="col">ឆ្នាំកំណើត</th>
+            <th scope="col">ជំនាញ</th>
+            <th scope="col">វគ្គសិក្សា</th>
+            <th scope="col">ថ្ងៃចុះឈ្មោះ</th>
+            <!-- <th scope="col">តម្លៃ</th>
+            <th scope="col">ការទូទាត់</th> -->
+            <th scope="col">មុខរបរ</th>
+            <th scope="col">ស្ថានភាព</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <% foundStudents.forEach(function(student) {
+              var price = student.price;
+                  var formattedPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price); %>
+                <tr>
+                  <td> <%= student.studentID %> </td>
+                  <td> <%= student.khmername %> </td>
+                  <td> <%= student.englishname %></td>
+                  <td> <%= student.gender %></td>
+                  <td> <%= moment(student.dateofbirth).format('YYYY') %></td>
+                  <td> <%= student.skill %></td>
+                  <td> <%= student.course %></td>
+                  <td> <%= moment(student.dateregister).format('DD-MM-YYYY') %></td>
+                  
+                  <td> <%= student.occupation %></td>
+                  <td> <%= student.status %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+      </table>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          
+            <li class="page-item"><a class="page-link" href="?page=<%= 1 %>&reportType=<%= reportParam %>&course=<%= courseParam %>&status=<%= statusParam %>&startDateCustom=<%= startDateParam %>&endDateCustom=<%= endDateParam %>">ដំបូង</a></li>
+            <% if(currentPage > 1) { %>
+            <li class="page-item"><a class="page-link" href="?page=<%= currentPage - 1 %>&reportType=<%= reportParam %>&course=<%= courseParam %>&status=<%= statusParam %>&startDateCustom=<%= startDateParam %>&endDateCustom=<%= endDateParam %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+              <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+            </svg></a></li>
+            <% } %>
+            <li class="page-item"><a class="page-link" href=""><%= currentPage %></a></li>
+          
+            <%  let currentPagenum = parseInt(currentPage); %>
+            <% if(currentPagenum < totalPage) { %>
+            <li class="page-item"><a class="page-link" href="?page=<%= currentPagenum + 1%>&reportType=<%= reportParam %>&course=<%= courseParam %>&status=<%= statusParam %>&startDateCustom=<%= startDateParam %>&endDateCustom=<%= endDateParam %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+              <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+            </svg></a></li>
+            <% } %>
+            <li class="page-item"><a class="page-link" href="?page=<%= totalPage %>&reportType=<%= reportParam %>&course=<%= courseParam %>&status=<%= statusParam %>&startDateCustom=<%= startDateParam %>&endDateCustom=<%= endDateParam %>">ចុងក្រោយ</a></li>
+          
+        </ul>
+      </nav>
+     
+    
+    
+      <script>
+           function formatDollarAmount(amount) {
+            const formattedAmount = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+            return formattedAmount;
+          }
+      </script>
+
+<%- include('./partials/footer') %>

@@ -1,0 +1,153 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+<div class="col mb-3">
+  
+
+    <form action="/addStudent" method="POST" class="needs-validation" novalidate="" style="padding: 20px;">
+        <div class="row g-3">
+          <h1>បញ្ចូលទិន្នន័យ</h1>
+          <div class="col-sm-7">
+            <label for="khmername" class="form-label">នាម និង គោត្តនាម</label>
+            <input type="text" class="form-control" name="khmername" placeholder="" value="" required>
+            <div class="invalid-feedback">
+              សូមបំពេញឈ្មោះ
+            </div>
+          </div>
+
+          <div class="col-sm-5">
+            <label for="studentID" class="form-label">អត្តលេខ</label>
+            <input type="text" class="form-control" name="studentID" placeholder="" value="" required="">
+            <div class="invalid-feedback">
+              សូមបំពេញអត្តលេខ
+            </div>
+          </div>
+          <div class="col-sm-7">
+            <label for="englishname" class="form-label">ជាអក្សរឡាតាំង</label>
+            <input type="text" class="form-control" name="englishname" placeholder="" value="" required="">
+            <div class="invalid-feedback">
+              សូមបំពេញឈ្មោះ
+            </div>
+          </div>
+          <div class="col-sm-5">
+            <label for="phone" class="form-label">លេខទូរស័ព្ទ</label>
+            <input type="text" class="form-control" name="phone" placeholder="" value="" >
+            <div class="invalid-feedback">
+           
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="gender" class="form-label">ភេទ</label>
+            <select class="form-select" name="gender" required="">
+              <% for (let i = 0; i < genderList.length; i++) { %>
+                <option value="<%= genderList[i] %>"><%= genderList[i] %></option>
+              <% } %>
+            </select>
+            <div class="invalid-feedback">
+              សូមជ្រើសរើសភេទ
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label for="dateofbirth" class="form-label">ថ្ងៃខែឆ្នាំកំណើត</label>
+            <input type="date" class="form-control" name="dateofbirth" placeholder="" required="">
+            <div class="invalid-feedback">
+              សូមជ្រើសរើសកាលបរិច្ឆេទ
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <label for="skill" class="form-label">ជំនាញ</label>
+            <select class="form-select" name="skill" required="">
+              <% for (let i = 0; i < skillList.length; i++) { %>
+                <option value="<%= skillList[i] %>"><%= skillList[i] %></option>
+              <% } %>
+            </select>
+            <div class="invalid-feedback">
+              សូមជ្រើសរើសជំនាញ
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="course" class="form-label">វគ្គសិក្សា</label>
+            <select class="form-select" name="course" required="">
+              <% for (let i = 0; i < courseLists.length; i++) { %>
+                <option value="<%= courseLists[i] %>"><%= courseLists[i] %></option>
+              <% } %>
+            </select>
+            <div class="invalid-feedback">
+              សូមជ្រើសរើសវគ្គសិក្សា
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label for="dateregister" class="form-label">ថ្ងៃចុះឈ្មោះ</label>
+            <input type="date" class="form-control" name="dateregister" placeholder="" required="">
+            <div class="invalid-feedback">
+              សូមជ្រើសរើសកាលបរិច្ឆេទ
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <label for="price" class="form-label">តម្លៃសិក្សា</label>
+            <input type="text" class="form-control" name="price" placeholder="" required="">
+            <div class="invalid-feedback">
+              សូមបំពេញតម្លៃសិក្សា
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <label for="payment" class="form-label">ការទូទាត់</label>
+            <select class="form-select" name="payment" required="">
+              <% for (let i = 0; i < paymentList.length; i++) { %>
+                <option value="<%= paymentList[i] %>"><%= paymentList[i] %></option>
+              <% } %>
+            </select>
+            <div class="invalid-feedback">
+              សូមជ្រើសរើសការទូរទាត់
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label for="occupation" class="form-label">មុខរបរ</label>
+            <select class="form-select" name="occupation" required="">
+              <% for (let i = 0; i < jobList.length; i++) { %>
+                <option value="<%= jobList[i] %>"><%= jobList[i] %></option>
+              <% } %>
+            </select>
+            <div class="invalid-feedback">
+              សូមជ្រើសរើសមុខរបរ
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <label for="status" class="form-label">ស្ថានភាព</label>
+            <select class="form-select" name="status" required="">
+              <% for (let i = 0; i < statusList.length; i++) { %>
+                <option value="<%= statusList[i] %>"><%= statusList[i] %></option>
+              <% } %>
+            
+            </select>
+            <div class="invalid-feedback">
+              សូមជ្រើសរើសស្ថានភាព
+            </div>
+          </div>
+
+
+        </div>
+
+        <hr class="my-4">
+        
+          <% if(message.length > 0) { %>
+              <div class="alert alert-success"> <%= message %> </div>
+         <% } %>
+        
+        <button type="submit" class="btn btn-lg btn-primary">រក្សាទុក</button>
+        <a class="btn btn-lg btn-outline-secondary" href="/studentList" role="button">ចាកចេញ</a>
+      </form>
+
+
+</div>
+
+<%- include('partials/footer') %>

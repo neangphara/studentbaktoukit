@@ -1,0 +1,172 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+
+<div class="col mt-3">
+  <%- include('partials/settings') %>
+  <% if(messageSuccess.length > 0) { %>
+    <div class="alert alert-success"> <%= messageSuccess %> </div>
+<% } %>
+<% if(messageFail.length > 0) { %>
+<div class="alert alert-danger"> <%= messageFail %> </div>
+<% } %>
+<% if(messageDelete.length > 0) { %>
+<div class="alert alert-danger"> <%= messageDelete %> </div>
+<% } %>
+  <div class="">
+    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#addDepartment">
+      បន្ថែមជំនាញ
+     </button> 
+   
+    &nbsp;
+  
+      <table class="table">
+        <thead>
+          <tr>
+            <!-- <th scope="col">#</th> -->
+            <th scope="col">ជំនាញ</th>
+            <th scope="col">ការកំណត់</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+          <% departmentlist.forEach(function(departments, index) { %>
+            <tr>
+             
+              <td> <%= departments.name %> </td>
+              <td>
+                <div class="d-flex">
+                  <form>
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateModal<%= index %>" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                      <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                    </svg></button>
+                  </form>&nbsp;
+                  <form action="">
+                    <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal<%= index %>" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                    </svg></button>
+                  </form>
+                  
+                </div>
+              </td>
+            </tr>
+          <% })  %>
+          
+          
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          
+            <li class="page-item"><a class="page-link" href="?page=<%= 1 %>">ដំបូង</a></li>
+            <% if(currentPage > 1) { %>
+              <li class="page-item"><a class="page-link" href="?page=<%= currentPage - 1 %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+              </svg></a></li>
+            <% } %>
+            <li class="page-item"><a class="page-link" href=""><%= currentPage %></a></li>
+            <%  let currentPagenum = parseInt(currentPage);%>
+            <% if(currentPagenum < totalPage) { %>
+            <li class="page-item"><a class="page-link" href="?page=<%= currentPagenum + 1%>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+              <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+            </svg></a></li>
+            <% }%>
+            <li class="page-item"><a class="page-link" href="?page=<%= totalPage %>">ចុងក្រោយ</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+</div>
+
+    <form action="/addDepartment" method="POST" class="needs-validation" novalidate="">
+      <div class="modal fade" id="addDepartment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-4" id="exampleModalLabel">បញ្ចូលវគ្គសិក្សាថ្មី</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row g-3">
+                <div class="col-sm-12">
+                  <label for="englishname" class="form-label">ជំនាញ</label>
+                  <input type="text" class="form-control" name="department" placeholder="" value="" required="">
+                  <div class="invalid-feedback">
+                    សូមបំពេញឈ្មោះ
+                  </div>
+                </div>
+                
+      
+                
+              </div>
+            </div>
+            <div class="modal-footer">
+             
+              <button type="submit" class="btn btn-primary">រក្សាទុក</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <% departmentlist.forEach(function(departments, index) { %>
+        <form action="/updateDepartment" method="POST" class="needs-validation" novalidate="">
+          <div class="modal fade" id="updateModal<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-4" id="exampleModalLabel">បញ្ចូលវគ្គសិក្សាថ្មី</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                      <input style="display: none;" type="text" name="departmentID" value="<%= departments._id %>">
+                        <div class="col-sm-12">
+                          <label for="englishname" class="form-label">ជំនាញ</label>
+                          <input type="text" class="form-control" name="department" placeholder="" value="<%= departments.department %>" required="">
+                          <div class="invalid-feedback">
+                            សូមបំពេញឈ្មោះ
+                          </div>
+                        </div>
+                        
+              
+                        
+                      </div>
+                </div>
+                <div class="modal-footer">
+                 
+                  <button type="submit" class="btn btn-primary">រក្សាទុក</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <% })  %>
+
+        <% departmentlist.forEach(function(departments, index) { %>
+          <form action="/department/<%= departments._id %>?_method=DELETE" method="POST">
+            <div class="modal fade" id="confirmDeleteModal<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content rounded-3 shadow">
+                  <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body p-4 text-center">
+                    <h4 class="mb-2">តើអ្នកពិតជាចង់លុបទិន្នន័យនេះមែនទេ?</h4>
+                    <p class="mb-0">ទិន្នន័យដែលបានលុបរួចមិនអាចត្រឡប់វិញបានទេ។</p>
+                  </div>
+                  <div class="modal-footer text-center">
+                      <button style="width: 100%;" class="btn btn-danger btn-lg " type="submit">លុប</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        
+        <% })  %>
+
+
+
+
+<%- include('partials/footer') %>
